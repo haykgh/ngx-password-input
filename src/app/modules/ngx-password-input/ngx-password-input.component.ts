@@ -48,7 +48,13 @@ export class NgxPasswordInputComponent implements OnInit {
   }
 
   public generatePassword($event: any) {
-    this.value = new RandExp(new RegExp(this.regex)).gen();
+    var regex = new RegExp(this.regex);
+
+    this.value = '';
+    while(!regex.test(this.value)) {
+        this.value = new RandExp(regex).gen();
+    }
+
     this.renderer.setProperty(this.input, 'value', this.value);
 
     return false;
